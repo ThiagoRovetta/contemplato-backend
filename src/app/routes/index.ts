@@ -7,6 +7,6 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 export const router = Router();
 
-router.use('/users', usersRoutes);
+router.use('/users', ensureAuthenticated, usersRoutes);
 router.use(authenticateRoutes);
 router.use('/tasks', ensureAuthenticated, taskRoutes);
