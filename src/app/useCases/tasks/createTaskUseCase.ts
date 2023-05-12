@@ -7,7 +7,7 @@ export async function createTask(req: Request, res: Response) {
   try {
     const createTaskBody = z.object({
       task: z.string(),
-      status: z.enum(['TODO', 'DOING', 'DONE']).optional()
+      done: z.boolean().optional()
     });
 
     const result = createTaskBody.safeParse(req.body);
@@ -22,7 +22,7 @@ export async function createTask(req: Request, res: Response) {
       const newTask = await prisma.task.create({
         data: {
           task: result.data.task,
-          status: !result.data.status ? 'TODO' : result.data.status,
+          done: result.data.done ?? false,
           userId: req.user.id
         }
       });

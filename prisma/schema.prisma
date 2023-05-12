@@ -11,11 +11,11 @@ datasource db {
 }
 
 model Task {
-  id     Int    @id @default(autoincrement())
+  id     Int     @id @default(autoincrement())
   task   String
-  status Status
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  done   Boolean @default(false)
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
 }
 
 model User {
@@ -23,10 +23,4 @@ model User {
   username String @unique
   password String
   tasks    Task[]
-}
-
-enum Status {
-  TODO
-  DOING
-  DONE
 }
